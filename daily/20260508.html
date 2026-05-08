@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Digest · 2026.05.08</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #08090a;
+    color: #e8e8ed;
+    font-family: 'Noto Sans SC', -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 24px;
+  }
+
+  /* poster container */
+  .poster {
+    max-width: 1080px;
+    width: 100%;
+  }
+
+  /* date bar */
+  .date-bar {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    color: #7170ff;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0.7;
+  }
+
+  .date-bar span {
+    display: inline-block;
+    background: rgba(113,112,255,0.12);
+    padding: 4px 16px;
+    border-radius: 4px;
+    letter-spacing: 0.15em;
+  }
+
+  /* main headline — 大字报内核 */
+  .headline {
+    font-size: clamp(64px, 10vw, 120px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+
+  .headline .accent {
+    color: #7170ff;
+  }
+
+  .subhead {
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 700;
+    color: #555;
+    line-height: 1.2;
+    margin-bottom: 64px;
+  }
+
+  /* divider */
+  .divider {
+    width: 60px;
+    height: 4px;
+    background: #7170ff;
+    margin-bottom: 64px;
+    border-radius: 2px;
+  }
+
+  /* section label */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: #7170ff;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0.5;
+  }
+
+  /* big cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 64px;
+  }
+
+  .card {
+    background: #0e0f12;
+    border: 1px solid #1a1b1f;
+    border-radius: 16px;
+    padding: 36px 32px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .card:hover {
+    border-color: #7170ff33;
+    background: #111216;
+  }
+
+  .card .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: #7170ff;
+    background: rgba(113,112,255,0.1);
+    padding: 2px 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .card p {
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: 1.5;
+    color: #c8c8d0;
+    font-weight: 400;
+  }
+
+  .card .big-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(48px, 6vw, 72px);
+    font-weight: 700;
+    color: #7170ff;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  /* full-width impact banner */
+  .impact-banner {
+    background: linear-gradient(135deg, #7170ff11 0%, #08090a 100%);
+    border: 1px solid #7170ff22;
+    border-radius: 20px;
+    padding: 48px 40px;
+    margin-bottom: 48px;
+    text-align: center;
+  }
+
+  .impact-banner .big-text {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .impact-banner .big-text .highlight {
+    color: #7170ff;
+  }
+
+  .impact-banner .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: #555;
+  }
+
+  /* one-liner list */
+  .oneliner-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+
+  .oneliner {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 16px 20px;
+    background: #0e0f12;
+    border-radius: 12px;
+    border-left: 3px solid #7170ff;
+    font-size: clamp(18px, 2vw, 22px);
+    color: #b0b0b8;
+    line-height: 1.4;
+  }
+
+  .oneliner .idx {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: #7170ff;
+    opacity: 0.5;
+    min-width: 28px;
+  }
+
+  /* footer */
+  .footer {
+    border-top: 1px solid #1a1b1f;
+    padding-top: 32px;
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #444;
+  }
+
+  .footer a {
+    color: #7170ff;
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* responsive */
+  @media (max-width: 768px) {
+    body { padding: 32px 16px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .impact-banner { padding: 32px 24px; }
+  }
+
+  /* print: 3:4 poster */
+  @media print {
+    @page { size: A4 portrait; margin: 0; }
+    body { padding: 0; display: block; }
+    .poster { max-width: 100%; padding: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <!-- date -->
+  <div class="date-bar"><span>2026 . 05 . 08</span></div>
+
+  <!-- 大字报主标题 -->
+  <div class="headline">
+    AI 的<span class="accent">下一个<br>跳跃</span>
+  </div>
+  <div class="subhead">今天的头条决定明天的格局</div>
+
+  <div class="divider"></div>
+
+  <!-- 核心炸弹 — 最炸裂内容做钩子 -->
+  <div class="impact-banner">
+    <div class="big-text">
+      <span class="highlight">●</span> 每日 AI 要闻 <span class="highlight">●</span>
+    </div>
+    <div class="meta">全球 AI 动态 · 关键发布 · 赛道风向</div>
+  </div>
+
+  <!-- 主要新闻卡片 -->
+  <div class="section-label">// TOP STORIES</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="tag">BREAKING</div>
+      <p>今日头条新闻标题 — 用一句话概括最劲爆的 AI 事件</p>
+    </div>
+    <div class="card">
+      <div class="tag">ANALYSIS</div>
+      <p>深度解读某大厂最新发布，对行业格局意味着什么</p>
+    </div>
+    <div class="card">
+      <div class="tag">OPEN SOURCE</div>
+      <p>某开源项目发布重大更新，性能超越竞品标杆</p>
+    </div>
+    <div class="card">
+      <div class="tag">FUNDING</div>
+      <p>某 AI 初创完成巨额融资，赛道估值再创新高</p>
+    </div>
+  </div>
+
+  <!-- 速览列表 -->
+  <div class="section-label">// QUICK HITS</div>
+  <div class="oneliner-list">
+    <div class="oneliner"><span class="idx">01</span>快讯一 — 简短有力，一眼读懂核心信息</div>
+    <div class="oneliner"><span class="idx">02</span>快讯二 — 保持大字报节奏，每行只讲一件事</div>
+    <div class="oneliner"><span class="idx">03</span>快讯三 — 不多废话，直击要害</div>
+    <div class="oneliner"><span class="idx">04</span>快讯四 — 今天还有这些值得关注</div>
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <span>AI DIGEST · 2026.05.08</span>
+    <span>← 前一日 · <a href="#">今日</a> · 后一日 →</span>
+  </div>
+
+</div>
+
+</body>
+</html>
