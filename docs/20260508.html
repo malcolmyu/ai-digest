@@ -2,355 +2,465 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Digest · 2026.05.08</title>
+<meta name="viewport" content="width=1080">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     background: #08090a;
-    color: #e8e8ed;
-    font-family: 'Noto Sans SC', -apple-system, sans-serif;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 60px 24px;
+    padding: 40px 0;
+    font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
   }
 
-  .poster { max-width: 1080px; width: 100%; }
-
-  .date-bar {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 20px;
-    color: #7170ff;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    opacity: 0.7;
-  }
-  .date-bar span {
-    display: inline-block;
-    background: rgba(113,112,255,0.12);
-    padding: 4px 16px;
-    border-radius: 4px;
-    letter-spacing: 0.15em;
-  }
-
-  .headline {
-    font-size: clamp(64px, 10vw, 120px);
-    font-weight: 900;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin-bottom: 8px;
-  }
-  .headline .accent { color: #7170ff; }
-
-  .subhead {
-    font-size: clamp(22px, 3vw, 36px);
-    font-weight: 400;
-    color: #888;
-    line-height: 1.4;
-    margin-bottom: 48px;
-  }
-
-  .divider {
-    width: 60px;
-    height: 4px;
-    background: #7170ff;
-    margin-bottom: 48px;
-    border-radius: 2px;
-  }
-
-  /* cover banner */
-  .cover-banner {
-    border: 1px solid #1a1b1f;
-    border-radius: 20px;
-    padding: 48px 40px;
-    margin-bottom: 48px;
-    background: linear-gradient(135deg, #0e0f12 0%, #08090a 100%);
+  /* ===== 关键画布 ===== */
+  .card {
+    width: 1080px;
+    min-height: 1440px;
+    padding: 64px 72px;
+    margin-bottom: 40px;
+    background: #08090a;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 32px;
     overflow: hidden;
   }
-  .cover-banner::before {
+
+  .card::before {
     content: '';
     position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(113,112,255,0.06) 0%, transparent 70%);
-    pointer-events: none;
+    top: 0; left: 72px; right: 72px;
+    height: 8px;
+    background: linear-gradient(90deg, #7170ff, #a8acff, #7170ff);
+    border-radius: 0 0 4px 4px;
   }
+
+  /* ===== 封面专用 ===== */
+  .card-cover { justify-content: center; }
+  .card-cover::before { height: 0; }
+
   .cover-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-family: 'Inter', monospace;
+    font-size: 20px;
+    font-weight: 500;
     color: #7170ff;
-    background: rgba(113,112,255,0.12);
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    letter-spacing: 0.1em;
-  }
-  .cover-title {
-    font-size: clamp(36px, 5vw, 64px);
-    font-weight: 900;
-    line-height: 1.15;
-    margin-bottom: 16px;
-    position: relative;
-  }
-  .cover-title .highlight { color: #7170ff; }
-  .cover-desc {
-    font-size: clamp(16px, 2vw, 22px);
-    color: #aaa;
-    line-height: 1.5;
-    max-width: 85%;
-    position: relative;
-  }
-
-  .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    color: #7170ff;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    letter-spacing: 0.15em;
     margin-bottom: 24px;
-    opacity: 0.5;
   }
 
-  /* builder cards */
-  .builder { margin-bottom: 48px; }
-  .builder-name {
-    font-size: clamp(26px, 3vw, 38px);
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-  .builder-name .accent { color: #7170ff; }
-  .builder-role {
-    font-size: 15px;
-    color: #666;
-    margin-bottom: 16px;
-  }
-  .builder-content {
-    font-size: clamp(16px, 1.6vw, 20px);
-    line-height: 1.7;
-    color: #c0c0c8;
-    padding: 20px 24px;
-    background: #0e0f12;
-    border-radius: 14px;
-    border-left: 3px solid #7170ff55;
-  }
-  .builder-content blockquote {
-    border-left: 2px solid #7170ff33;
-    padding-left: 16px;
-    margin: 12px 0;
-    color: #999;
-    font-style: italic;
-  }
-  .builder-content a {
-    color: #7170ff;
-    text-decoration: none;
-    border-bottom: 1px solid #7170ff44;
-  }
-  .builder-content a:hover { border-bottom-color: #7170ff; }
-
-  /* podcast section */
-  .podcast-card {
-    background: #0e0f12;
-    border: 1px solid #1a1b1f;
-    border-radius: 16px;
-    padding: 36px 32px;
-    margin-bottom: 48px;
-  }
-  .podcast-card .tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    font-weight: 700;
-    color: #7170ff;
-    background: rgba(113,112,255,0.1);
-    padding: 2px 10px;
-    border-radius: 4px;
-    display: inline-block;
-    margin-bottom: 12px;
-    letter-spacing: 0.05em;
-  }
-  .podcast-card h2 {
-    font-size: clamp(22px, 2.5vw, 32px);
-    font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.3;
-  }
-  .podcast-card h2 a { color: #7170ff; text-decoration: none; }
-  .podcast-card h2 a:hover { text-decoration: underline; }
-  .podcast-card .content {
-    font-size: clamp(16px, 1.6vw, 20px);
-    line-height: 1.7;
-    color: #c0c0c8;
-  }
-  .podcast-card .content .point {
-    display: block;
-    margin-bottom: 14px;
-    padding-left: 0;
-  }
-  .podcast-card .content .point strong { color: #e0e0e8; }
-  .podcast-card .why-matters {
-    margin-top: 20px;
-    padding: 16px 20px;
-    background: rgba(113,112,255,0.06);
-    border-radius: 10px;
-    border: 1px solid #7170ff22;
-  }
-  .podcast-card .why-matters .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: #7170ff;
-    margin-bottom: 8px;
-  }
-  .podcast-card .why-matters p {
-    font-size: 15px;
-    color: #999;
-    line-height: 1.5;
+  .cover-title {
+    font-size: 92px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    background: linear-gradient(135deg, #ffffff 40%, #a8acff, #7170ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  /* closing */
-  .closing {
-    padding: 32px 28px;
-    border: 1px solid #7170ff22;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #0e0f12 0%, #08090a 100%);
-    margin-bottom: 32px;
+  .cover-quote {
+    font-size: 34px;
+    font-weight: 400;
+    color: #8a8f98;
+    line-height: 1.4;
+    margin-bottom: 40px;
+    max-width: 85%;
   }
-  .closing p {
-    font-size: clamp(18px, 2vw, 24px);
-    line-height: 1.6;
-    color: #b0b0b8;
-  }
-  .closing .highlight { color: #7170ff; font-weight: 700; }
 
-  .footer {
-    border-top: 1px solid #1a1b1f;
-    padding-top: 32px;
-    margin-top: 16px;
+  .cover-tags {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .cover-tags span {
+    font-size: 20px;
+    font-weight: 500;
+    color: #62666d;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 8px 18px;
+    border-radius: 100px;
+  }
+
+  /* ===== 内页通用 ===== */
+  .page-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 14px;
-    color: #444;
+    margin-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    padding-bottom: 20px;
   }
-  .footer a { color: #7170ff; text-decoration: none; }
-  .footer a:hover { text-decoration: underline; }
+  .page-top .label {
+    font-family: 'Inter', monospace;
+    font-size: 18px;
+    font-weight: 500;
+    color: #7170ff;
+    letter-spacing: 0.1em;
+  }
+  .page-top .page-num {
+    font-family: 'Inter', monospace;
+    font-size: 18px;
+    color: #62666d;
+  }
 
-  @media (max-width: 768px) {
-    body { padding: 32px 16px; }
-    .cover-banner { padding: 32px 24px; }
-    .cover-desc { max-width: 100%; }
+  .page-title {
+    font-size: 54px;
+    font-weight: 800;
+    color: #f7f8f8;
+    line-height: 1.2;
+    margin-bottom: 40px;
   }
 
-  @media print {
-    @page { size: A4 portrait; margin: 0; }
-    body { padding: 0; display: block; }
-    .poster { max-width: 100%; padding: 40px; }
+  .page-title .highlight {
+    background: linear-gradient(135deg, #a8acff, #7170ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
+
+  /* ===== 卡片组件 ===== */
+  .big-point-grid {
+    display: flex;
+    gap: 24px;
+    flex: 1;
+  }
+  .big-point-grid.two { display: grid; grid-template-columns: 1fr 1fr; }
+  .big-point-grid.three { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+
+  .big-point {
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .big-point .emoji {
+    font-size: 56px;
+    margin-bottom: 20px;
+  }
+
+  .big-point .point-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #f7f8f8;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .big-point .point-body {
+    font-size: 24px;
+    font-weight: 400;
+    color: #a0a5b0;
+    line-height: 1.5;
+  }
+
+  .big-point .point-body strong { color: #e0e4ec; }
+
+  /* ===== 引用块 ===== */
+  .quote-block {
+    background: rgba(113,112,255,0.06);
+    border: 1px solid rgba(113,112,255,0.15);
+    border-radius: 20px;
+    padding: 36px 40px;
+    margin-bottom: 32px;
+  }
+  .quote-block .quote {
+    font-size: 32px;
+    font-weight: 500;
+    color: #d0d4dc;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+  .quote-block .quote::before { content: '"'; color: #7170ff; }
+  .quote-block .quote::after { content: '"'; color: #7170ff; }
+  .quote-block .source {
+    font-size: 20px;
+    color: #62666d;
+  }
+  .quote-block .source strong { color: #7170ff; }
+
+  /* ===== 双栏布局 ===== */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    flex: 1;
+  }
+  .col {
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .col .col-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #f7f8f8;
+    margin-bottom: 12px;
+  }
+  .col .col-body {
+    font-size: 22px;
+    color: #a0a5b0;
+    line-height: 1.5;
+  }
+  .col .col-body strong { color: #e0e4ec; }
+
+  /* ===== 列表 ===== */
+  .list-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    justify-content: center;
+  }
+  .list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .list-item .num {
+    font-family: 'Inter', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: #7170ff;
+    min-width: 36px;
+    padding-top: 2px;
+  }
+  .list-item .text {
+    font-size: 26px;
+    color: #a0a5b0;
+    line-height: 1.4;
+  }
+  .list-item .text strong { color: #e0e4ec; }
+
+  /* ===== 结论页 ===== */
+  .conclusion-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .conclusion-big {
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.15;
+    color: #f7f8f8;
+    margin-bottom: 32px;
+  }
+  .conclusion-big .accent {
+    background: linear-gradient(135deg, #a8acff, #7170ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .conclusion-evidence {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .conclusion-evidence .ev-item {
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 24px 20px;
+  }
+  .conclusion-evidence .ev-item .ev-text {
+    font-size: 22px;
+    color: #a0a5b0;
+    line-height: 1.4;
+  }
+  .conclusion-evidence .ev-item .ev-num {
+    font-family: 'Inter', monospace;
+    font-size: 40px;
+    font-weight: 700;
+    color: #7170ff;
+    margin-bottom: 6px;
+  }
+
+  .next-spotlight {
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding-top: 24px;
+  }
+  .next-spotlight .label {
+    font-size: 18px;
+    color: #62666d;
+    margin-bottom: 8px;
+  }
+  .next-spotlight .text {
+    font-size: 24px;
+    color: #8a8f98;
+  }
+
+  /* ===== 页脚 ===== */
+  .card-footer {
+    margin-top: auto;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    color: #62666d;
+  }
+  .card-footer .brand { color: #7170ff; font-weight: 500; }
 </style>
 </head>
 <body>
-<div class="poster">
 
-  <!-- date -->
-  <div class="date-bar"><span>2026 . 05 . 08</span></div>
-
-  <!-- 大字报主标题 -->
-  <div class="headline">
-    <span class="accent">千人千面</span> Agent
+<!-- ============================== -->
+<!-- 5月8日 — 封面 -->
+<!-- ============================== -->
+<div class="card card-cover">
+  <div class="cover-tag">● AI BUILDERS DIGEST</div>
+  <div class="cover-title">"每晚数千个<br>AI Agent<br>在并行工作"</div>
+  <div class="cover-quote">Claude Code 之父 Boris Cherny 已 100% 通过 Agent 写代码，一天 150 个 PR —— 大部分在手机上完成</div>
+  <div class="cover-tags">
+    <span>Boris Cherny</span>
+    <span>Claude Code</span>
+    <span>Anthropic</span>
+    <span>2026.05.08</span>
   </div>
-  <div class="subhead">Claude Code 之父每晚跑数千 Agent · Dario 80x 增长<br>Boris Cherny 100% 手机写代码 · 编码成为新读写能力</div>
-
-  <div class="divider"></div>
-
-  <!-- 封面钩子 — 最炸裂内容 -->
-  <div class="cover-banner">
-    <div class="cover-tag">● TODAY'S BOMB</div>
-    <div class="cover-title">
-      "每晚<span class="highlight">数千个 AI Agent</span><br>在并行工作"
-    </div>
-    <div class="cover-desc">
-      Claude Code 之父 Boris Cherny 已 100% 通过 AI 写代码，一天最多 150 个 PR，大部分工作——在手机上完成。Anthropic CEO Dario 同期宣布使用量增长 80 倍。
-    </div>
-  </div>
-
-  <!-- ===== Builder 动态 ===== -->
-  <div class="section-label">// BUILDER 动态</div>
-
-  <div class="builder">
-    <div class="builder-name"><span class="accent">Dario Amodei</span> — Anthropic CEO</div>
-    <div class="builder-content">
-      <blockquote>"去年我们的使用量和收入增长了 80 倍，这就是为什么我们会继续获取尽可能多的算力。"</blockquote>
-      <p>Peter Yang（Roblox Product）引用 Dario 分享的金句。模型正在从"编码"进化到"软件工程"，再到"经营整个业务"。他建议创业者<strong>"为指数级增长而构建"</strong>——有些产品在当前模型下不可行，但等到下一代模型就会爆发。</p>
-      <p style="margin-top:12px;"><a href="https://x.com/petergyang/status/2052123472583864780">x.com/petergyang →</a></p>
-      <p style="margin-top:6px;">Thariq（Anthropic Claude Code 团队成员）转述 Dario 的话：<em>"我们每天都在努力获得更多算力并传递给你们。如果有时需要等待，我们很抱歉——但我们会竭尽全力去获取。"</em>（1300+ 赞）<br><a href="https://x.com/trq212/status/2052250816720056604">x.com/trq212 →</a></p>
-    </div>
-  </div>
-
-  <div class="builder">
-    <div class="builder-name"><span class="accent">Claude</span> — 两大新功能</div>
-    <div class="builder-content">
-      <p><strong>Outcomes（成果校验）：</strong>编写评分标准（rubric），独立评阅模型检查输出质量，Agent 持续迭代直到达标。完成后通过 Webhook 通知。</p>
-      <p style="margin-top:12px;"><strong>Dreaming（梦境回顾）：</strong>Agent 回顾过去的会话，提取行为模式，整理记忆。Agent 随着时间推移不断学习和进化。</p>
-      <p style="margin-top:12px;font-size:14px;color:#666;"><a href="https://x.com/claudeai/status/2052067403228455419">x.com/claudeai →</a></p>
-    </div>
-  </div>
-
-  <div class="builder">
-    <div class="builder-name"><span class="accent">Zara Zhang</span></div>
-    <div class="builder-content">
-      <p>总结与 Boris Cherny 对话中最令人震撼的三点：</p>
-      <ol style="margin-top:12px;padding-left:20px;color:#b0b0b8;">
-        <li>Boris 轻描淡写地说他每晚有<strong>"数千个"</strong> Agent 在后台运行</li>
-        <li>他几乎只在<strong>手机</strong>上用 Claude Code</li>
-        <li><strong>编码将成为新的读写能力</strong>（literacy）——就像几百年前印刷术普及了读写一样</li>
-      </ol>
-      <p style="margin-top:12px;font-size:14px;color:#666;"><a href="https://x.com/zarazhangrui/status/2052277868319916402">x.com/zarazhangrui →</a></p>
-    </div>
-  </div>
-
-  <!-- ===== 播客精选 ===== -->
-  <div class="section-label">// 播客精华</div>
-
-  <div class="podcast-card">
-    <div class="tag">TRAINING DATA × BORIS CHERNY</div>
-    <h2><a href="https://www.youtube.com/playlist?list=PLOhHNjZItNnMm5tdW61JpnyxeYH5NDDx8">Coding's Printing Press Moment</a></h2>
-    <div class="content">
-      <span class="point"><strong>前 6 个月几乎不能用。</strong>团队为下一代模型构建产品，忍受了漫长的 PMF 空窗期。转折点出现在 <strong>Opus 4</strong> 发布后，增长指数级爆发，此后每次模型发布（4.5→4.6→4.7）再次加速。</span>
-      <span class="point"><strong>100% 通过 Agent 写代码。</strong>Boris 本人已一年多没手工写过一行代码。每天开 5-10 个会话，每个会话跑多个子 Agent。白天数百个并发，夜晚数千个做深度工作。</span>
-      <span class="point"><strong>Loops 是未来范式。</strong>用 Claude 自带的 <code>/loop</code> 跑几十个循环任务：自动 rebase PR、修复 CI 和 flaky test、每 30 分钟抓取 Twitter 反馈并聚类。<strong>Routines</strong> 更进一步——合上笔记本，循环仍在服务器上持续运行。</span>
-      <span class="point"><strong>"SaaSpocalypse"的真正冲击。</strong>切换成本和流程优势将贬值（模型自己就能理解和执行流程），但网络效应、规模经济和稀缺资源仍然有效。未来十年，能颠覆一切的创业公司数量将<strong>增长 10 倍</strong>。</span>
-      <span class="point"><strong>跨领域通才的时代。</strong>Claude Code 团队所有人都会写代码——包括工程经理、产品经理、设计师、数据科学家，甚至财务和用户研究员。最好的会计软件应该由<strong>最优秀的会计师</strong>来写。</span>
-    </div>
-    <div class="why-matters">
-      <div class="label">●●● WHY IT MATTERS</div>
-      <p>Boris 描绘的未来不是"程序员会失业"，而是"人人都是程序员"——就像今天人人都会读写一样。下一个问题不是"AI 会取代开发者吗"，而是当每个人都能用自然语言制造软件时，什么变得真正稀缺？</p>
-    </div>
-  </div>
-
-  <!-- ===== 闭幕 ===== -->
-  <div class="closing">
-    <p>
-      当模型从"编码助手"演进到"软件工程师"再到"经营业务"，
-      当<span class="highlight">数千个 Agent</span> 在你的手机后台默默工作——
-      我们正在经历的不仅仅是工具升级，而是<span class="highlight">软件开发这一活动本身的定义性转变</span>。
-      15 世纪欧洲识字率仅 10%，印刷术发明后 50 年内出版的文献超过此前 1000 年的总和。
-      今天，软件的民主化将以更快的速度发生。现在就是最好的创业时机。
-    </p>
-  </div>
-
-  <div class="footer">
-    <span>AI DIGEST · 2026.05.08</span>
-    <span><a href="20260507.html">← 5月7日</a> · <a href="https://malcolmyu.github.io/ai-digest/20260508.html">∞</a> · 后一日 →</span>
-  </div>
-
 </div>
+
+<!-- ============================== -->
+<!-- 5月8日 — 页2 三大信号 -->
+<!-- ============================== -->
+<div class="card">
+  <div class="page-top">
+    <span class="label">● CORE SIGNALS</span>
+    <span class="page-num">02 / 05</span>
+  </div>
+  <div class="page-title">今天的三条<span class="highlight">核心信号</span></div>
+  <div class="big-point-grid three">
+    <div class="big-point">
+      <div class="emoji">🤯</div>
+      <div class="point-title">Agent 规模化</div>
+      <div class="point-body">Boris Cherny 每晚数千 Agent 后台运行，白天数百并发。Claude Code 团队全员写代码——包括财务和HR</div>
+    </div>
+    <div class="big-point">
+      <div class="emoji">📈</div>
+      <div class="point-title">80x 增长飞轮</div>
+      <div class="point-body">Dario Amodei：使用量和收入增长 80 倍，"不惜一切代价获取更多算力"。模型→软件工程→经营业务</div>
+    </div>
+    <div class="big-point">
+      <div class="emoji">🧠</div>
+      <div class="point-title">Agent 自我进化</div>
+      <div class="point-body">Claude 发布 Outcomes（成果校验）+ Dreaming（梦境回顾），Agent 开始自己反思和成长</div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="brand">AI DIGEST</span>
+    <span>2026.05.08</span>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 5月8日 — 页3 Boris 深度解读 -->
+<!-- ============================== -->
+<div class="card">
+  <div class="page-top">
+    <span class="label">● DEEP DIVE</span>
+    <span class="page-num">03 / 05</span>
+  </div>
+  <div class="page-title">Claude Code 之父：<span class="highlight">编码即新读写能力</span></div>
+  <div class="quote-block">
+    <div class="quote">编码将成为新的读写能力（literacy）——就像几百年前印刷术普及了读写一样</div>
+    <div class="source">— <strong>Boris Cherny</strong> · Training Data 播客</div>
+  </div>
+  <div class="two-col">
+    <div class="col">
+      <div class="col-title">100% Agent 工作流</div>
+      <div class="col-body">Boris 一年多没手写一行代码。每天开 5-10 个会话×多个子 Agent，<strong>白天数百个并发，夜晚数千个</strong>做深度工作。用 <code>/loop</code> 自动 rebase PR、修 CI、每 30 分钟抓取 Twitter 反馈</div>
+    </div>
+    <div class="col">
+      <div class="col-title">SaaSpocalypse 冲击</div>
+      <div class="col-body">切换成本和流程优势将贬值——<strong>模型自己能理解并执行流程</strong>。网络效应和规模经济仍然有效。未来十年颠覆性创业公司数量将 <strong>增长 10 倍</strong></div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="brand">AI DIGEST</span>
+    <span>2026.05.08</span>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 5月8日 — 页4 Dario + Claude 新功能 -->
+<!-- ============================== -->
+<div class="card">
+  <div class="page-top">
+    <span class="label">● DEEP DIVE</span>
+    <span class="page-num">04 / 05</span>
+  </div>
+  <div class="page-title">Anthropic 的<span class="highlight">双重进化</span></div>
+  <div class="quote-block" style="margin-bottom:28px;">
+    <div class="quote">去年我们的使用量和收入增长了 80 倍，这就是为什么我们会继续获取尽可能多的算力</div>
+    <div class="source">— <strong>Dario Amodei</strong> · Anthropic CEO</div>
+  </div>
+  <div class="two-col">
+    <div class="col">
+      <div class="col-title">Outcomes 成果校验</div>
+      <div class="col-body">编写评分标准（rubric），独立评阅模型检查输出质量，Agent 持续迭代直到达标。完成后 <strong>Webhook 通知</strong>——无需人工盯屏</div>
+    </div>
+    <div class="col">
+      <div class="col-title">Dreaming 梦境回顾</div>
+      <div class="col-body">Agent 回顾过去会话，提取行为模式，整理记忆。<strong>Agent 随时间推移自我进化</strong>——不再是每次从零开始的工具</div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="brand">AI DIGEST</span>
+    <span>2026.05.08</span>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 5月8日 — 页5 总结 -->
+<!-- ============================== -->
+<div class="card">
+  <div class="page-top">
+    <span class="label">● CONCLUSION</span>
+    <span class="page-num">05 / 05</span>
+  </div>
+  <div class="conclusion-area">
+    <div class="conclusion-big">
+      当<span class="accent">每个人</span>都能用自然语言<br>制造软件时，什么变得<span class="accent">真正稀缺</span>？
+    </div>
+    <div class="conclusion-evidence">
+      <div class="ev-item">
+        <div class="ev-num">150</div>
+        <div class="ev-text">PR / 天 — Boris 个人提交量</div>
+      </div>
+      <div class="ev-item">
+        <div class="ev-num">80×</div>
+        <div class="ev-text">Anthropic 年收入增长</div>
+      </div>
+      <div class="ev-item">
+        <div class="ev-num">100%</div>
+        <div class="ev-text">Claude Code 团队全员写代码</div>
+      </div>
+    </div>
+    <div class="next-spotlight">
+      <div class="label">明日关注</div>
+      <div class="text">模型从编码助手 → 软件工程师 → 经营业务的进化路径，以及"为指数级增长而构建"的创业策略</div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="brand">AI DIGEST</span>
+    <span>2026.05.08</span>
+  </div>
+</div>
+
 </body>
 </html>

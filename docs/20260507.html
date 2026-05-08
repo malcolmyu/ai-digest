@@ -2,427 +2,437 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Digest · 2026.05.07</title>
+<meta name="viewport" content="width=1080">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     background: #08090a;
-    color: #e8e8ed;
-    font-family: 'Noto Sans SC', -apple-system, sans-serif;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 60px 24px;
+    padding: 40px 0;
+    font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
   }
 
-  .poster { max-width: 1080px; width: 100%; }
-
-  .date-bar {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 20px;
-    color: #7170ff;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    opacity: 0.7;
-  }
-  .date-bar span {
-    display: inline-block;
-    background: rgba(113,112,255,0.12);
-    padding: 4px 16px;
-    border-radius: 4px;
-    letter-spacing: 0.15em;
-  }
-
-  .headline {
-    font-size: clamp(64px, 10vw, 120px);
-    font-weight: 900;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin-bottom: 8px;
-  }
-  .headline .accent { color: #7170ff; }
-
-  .subhead {
-    font-size: clamp(22px, 3vw, 36px);
-    font-weight: 400;
-    color: #888;
-    line-height: 1.4;
-    margin-bottom: 48px;
-  }
-
-  .divider {
-    width: 60px;
-    height: 4px;
-    background: #7170ff;
-    margin-bottom: 48px;
-    border-radius: 2px;
-  }
-
-  /* cover banner */
-  .cover-banner {
-    border: 1px solid #1a1b1f;
-    border-radius: 20px;
-    padding: 48px 40px;
-    margin-bottom: 48px;
-    background: linear-gradient(135deg, #0e0f12 0%, #08090a 100%);
+  /* ===== 关键画布 ===== */
+  .card {
+    width: 1080px;
+    min-height: 1440px;
+    padding: 64px 72px;
+    margin-bottom: 40px;
+    background: #08090a;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 32px;
     overflow: hidden;
   }
-  .cover-banner::before {
+
+  .card::before {
     content: '';
     position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(113,112,255,0.06) 0%, transparent 70%);
-    pointer-events: none;
+    top: 0; left: 72px; right: 72px;
+    height: 8px;
+    background: linear-gradient(90deg, #7170ff, #a8acff, #7170ff);
+    border-radius: 0 0 4px 4px;
   }
+
+  .card-cover { justify-content: center; }
+  .card-cover::before { height: 0; }
+
   .cover-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-family: 'Inter', monospace;
+    font-size: 20px;
+    font-weight: 500;
     color: #7170ff;
-    background: rgba(113,112,255,0.12);
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    letter-spacing: 0.1em;
-  }
-  .cover-title {
-    font-size: clamp(36px, 5vw, 64px);
-    font-weight: 900;
-    line-height: 1.15;
-    margin-bottom: 16px;
-    position: relative;
-  }
-  .cover-title .highlight { color: #7170ff; }
-  .cover-desc {
-    font-size: clamp(18px, 2vw, 24px);
-    color: #aaa;
-    line-height: 1.5;
-    max-width: 80%;
-    position: relative;
-  }
-
-  .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    color: #7170ff;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    letter-spacing: 0.15em;
     margin-bottom: 24px;
-    opacity: 0.5;
   }
 
-  /* builder cards */
-  .builder { margin-bottom: 48px; }
-  .builder-name {
-    font-size: clamp(28px, 3vw, 40px);
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-  .builder-name .accent { color: #7170ff; }
-  .builder-role {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 16px;
-  }
-  .builder-content {
-    font-size: clamp(16px, 1.6vw, 20px);
-    line-height: 1.7;
-    color: #c0c0c8;
-    padding: 20px 24px;
-    background: #0e0f12;
-    border-radius: 14px;
-    border-left: 3px solid #7170ff55;
-  }
-  .builder-content a {
-    color: #7170ff;
-    text-decoration: none;
-    border-bottom: 1px solid #7170ff44;
-  }
-  .builder-content a:hover { border-bottom-color: #7170ff; }
-
-  /* podcast section */
-  .podcast-card {
-    background: #0e0f12;
-    border: 1px solid #1a1b1f;
-    border-radius: 16px;
-    padding: 36px 32px;
-    margin-bottom: 48px;
-  }
-  .podcast-card .tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    font-weight: 700;
-    color: #7170ff;
-    background: rgba(113,112,255,0.1);
-    padding: 2px 10px;
-    border-radius: 4px;
-    display: inline-block;
-    margin-bottom: 12px;
-    letter-spacing: 0.05em;
-  }
-  .podcast-card h2 {
-    font-size: clamp(22px, 2.5vw, 32px);
-    font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.3;
-  }
-  .podcast-card h2 a { color: #7170ff; text-decoration: none; }
-  .podcast-card h2 a:hover { text-decoration: underline; }
-  .podcast-card .content {
-    font-size: clamp(16px, 1.6vw, 20px);
-    line-height: 1.7;
-    color: #c0c0c8;
-  }
-  .podcast-card .content .point {
-    display: block;
-    margin-bottom: 12px;
-    padding-left: 0;
-  }
-  .podcast-card .content .point strong {
-    color: #e0e0e8;
-  }
-  .podcast-card .why-matters {
-    margin-top: 20px;
-    padding: 16px 20px;
-    background: rgba(113,112,255,0.06);
-    border-radius: 10px;
-    border: 1px solid #7170ff22;
-  }
-  .podcast-card .why-matters .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: #7170ff;
-    margin-bottom: 8px;
-  }
-  .podcast-card .why-matters p {
-    font-size: 15px;
-    color: #999;
-    line-height: 1.5;
+  .cover-title {
+    font-size: 92px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    background: linear-gradient(135deg, #ffffff 40%, #a8acff, #7170ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  /* blog cards */
-  .blog-card {
-    background: #0e0f12;
-    border: 1px solid #1a1b1f;
-    border-radius: 16px;
-    padding: 36px 32px;
-    margin-bottom: 48px;
+  .cover-quote {
+    font-size: 34px;
+    font-weight: 400;
+    color: #8a8f98;
+    line-height: 1.4;
+    margin-bottom: 40px;
+    max-width: 90%;
   }
-  .blog-card .tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    font-weight: 700;
-    color: #7170ff;
-    background: rgba(113,112,255,0.1);
-    padding: 2px 10px;
-    border-radius: 4px;
-    display: inline-block;
-    margin-bottom: 12px;
-    letter-spacing: 0.05em;
-  }
-  .blog-card h2 {
-    font-size: clamp(22px, 2.5vw, 32px);
-    font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.3;
-  }
-  .blog-card h2 a { color: #7170ff; text-decoration: none; }
-  .blog-card h2 a:hover { text-decoration: underline; }
-  .blog-card .content {
-    font-size: clamp(16px, 1.6vw, 20px);
-    line-height: 1.7;
-    color: #c0c0c8;
-  }
-  .blog-card .content .point {
-    display: block;
-    margin-bottom: 12px;
-  }
-  .blog-card .content .point strong { color: #e0e0e8; }
 
-  /* closing */
-  .closing {
-    padding: 32px 28px;
-    border: 1px solid #7170ff22;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #0e0f12 0%, #08090a 100%);
-    margin-bottom: 32px;
+  .cover-tags {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
   }
-  .closing p {
-    font-size: clamp(18px, 2vw, 24px);
-    line-height: 1.6;
-    color: #b0b0b8;
+  .cover-tags span {
+    font-size: 20px;
+    font-weight: 500;
+    color: #62666d;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 8px 18px;
+    border-radius: 100px;
   }
-  .closing .highlight { color: #7170ff; font-weight: 700; }
 
-  .footer {
-    border-top: 1px solid #1a1b1f;
-    padding-top: 32px;
-    margin-top: 16px;
+  .page-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 14px;
-    color: #444;
+    margin-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    padding-bottom: 20px;
   }
-  .footer a { color: #7170ff; text-decoration: none; }
-  .footer a:hover { text-decoration: underline; }
+  .page-top .label {
+    font-family: 'Inter', monospace;
+    font-size: 18px;
+    font-weight: 500;
+    color: #7170ff;
+    letter-spacing: 0.1em;
+  }
+  .page-top .page-num {
+    font-family: 'Inter', monospace;
+    font-size: 18px;
+    color: #62666d;
+  }
 
-  @media (max-width: 768px) {
-    body { padding: 32px 16px; }
-    .cover-banner { padding: 32px 24px; }
-    .cover-desc { max-width: 100%; }
+  .page-title {
+    font-size: 54px;
+    font-weight: 800;
+    color: #f7f8f8;
+    line-height: 1.2;
+    margin-bottom: 40px;
   }
 
-  @media print {
-    @page { size: A4 portrait; margin: 0; }
-    body { padding: 0; display: block; }
-    .poster { max-width: 100%; padding: 40px; }
+  .page-title .highlight {
+    background: linear-gradient(135deg, #a8acff, #7170ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
+
+  .big-point-grid.three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; flex: 1; }
+  .big-point-grid.four { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1; }
+
+  .big-point {
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .big-point .emoji { font-size: 56px; margin-bottom: 20px; }
+  .big-point .point-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #f7f8f8;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .big-point .point-body {
+    font-size: 24px;
+    font-weight: 400;
+    color: #a0a5b0;
+    line-height: 1.5;
+  }
+  .big-point .point-body strong { color: #e0e4ec; }
+
+  .quote-block {
+    background: rgba(113,112,255,0.06);
+    border: 1px solid rgba(113,112,255,0.15);
+    border-radius: 20px;
+    padding: 36px 40px;
+    margin-bottom: 32px;
+  }
+  .quote-block .quote {
+    font-size: 32px;
+    font-weight: 500;
+    color: #d0d4dc;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+  .quote-block .quote::before { content: '"'; color: #7170ff; }
+  .quote-block .quote::after { content: '"'; color: #7170ff; }
+  .quote-block .source { font-size: 20px; color: #62666d; }
+  .quote-block .source strong { color: #7170ff; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    flex: 1;
+  }
+  .col {
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .col .col-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #f7f8f8;
+    margin-bottom: 12px;
+  }
+  .col .col-body {
+    font-size: 22px;
+    color: #a0a5b0;
+    line-height: 1.5;
+  }
+  .col .col-body strong { color: #e0e4ec; }
+
+  .list-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    justify-content: center;
+  }
+  .list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .list-item .num {
+    font-family: 'Inter', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: #7170ff;
+    min-width: 36px;
+    padding-top: 2px;
+  }
+  .list-item .text {
+    font-size: 26px;
+    color: #a0a5b0;
+    line-height: 1.4;
+  }
+  .list-item .text strong { color: #e0e4ec; }
+
+  .conclusion-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .conclusion-big {
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.15;
+    color: #f7f8f8;
+    margin-bottom: 32px;
+  }
+  .conclusion-big .accent {
+    background: linear-gradient(135deg, #a8acff, #7170ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .conclusion-evidence {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .conclusion-evidence .ev-item {
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 24px 20px;
+  }
+  .conclusion-evidence .ev-item .ev-text {
+    font-size: 22px;
+    color: #a0a5b0;
+    line-height: 1.4;
+  }
+  .conclusion-evidence .ev-item .ev-num {
+    font-family: 'Inter', monospace;
+    font-size: 40px;
+    font-weight: 700;
+    color: #7170ff;
+    margin-bottom: 6px;
+  }
+
+  .next-spotlight {
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding-top: 24px;
+  }
+  .next-spotlight .label { font-size: 18px; color: #62666d; margin-bottom: 8px; }
+  .next-spotlight .text { font-size: 24px; color: #8a8f98; }
+
+  .card-footer {
+    margin-top: auto;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    color: #62666d;
+  }
+  .card-footer .brand { color: #7170ff; font-weight: 500; }
 </style>
 </head>
 <body>
-<div class="poster">
 
-  <!-- date -->
-  <div class="date-bar"><span>2026 . 05 . 07</span></div>
-
-  <!-- 大字报主标题 -->
-  <div class="headline">
-    <span class="accent">信任</span>规模化
+<!-- ============================== -->
+<!-- 5月7日 — 封面 -->
+<!-- ============================== -->
+<div class="card card-cover">
+  <div class="cover-tag">● AI BUILDERS DIGEST</div>
+  <div class="cover-title">Waymo 一天<br>开<span class="cover-title" style="font-size:inherit;background:linear-gradient(135deg,#fff 40%,#a8acff,#7170ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">4城</span></div>
+  <div class="cover-quote">联合 CEO Dmitri Dolgov 揭开自动驾驶规模化密码：端到端 + 结构化中间表征。同日 Anthropic 发布 Claude Code Auto Mode 用分类器取代人工审批</div>
+  <div class="cover-tags">
+    <span>Waymo</span>
+    <span>Sam Altman</span>
+    <span>DeepSeek V4</span>
+    <span>Auto Mode</span>
+    <span>2026.05.07</span>
   </div>
-  <div class="subhead">Waymo 2000万次出行 · Claude Code Auto Mode<br>中国芯片走向全球 · GPT-5.5 派对</div>
-
-  <div class="divider"></div>
-
-  <!-- 封面钩子 — 最炸裂内容 -->
-  <div class="cover-banner">
-    <div class="cover-tag">● TODAY'S TOP</div>
-    <div class="cover-title">
-      Waymo 的答案：<span class="highlight">端到端 +</span><br>
-      <span class="highlight">结构化中间表征</span>
-    </div>
-    <div class="cover-desc">
-      联合 CEO Dmitri Dolgov 揭秘自动驾驶规模化架构。同日 Anthropic 发布 Claude Code Auto Mode 用分类器取代人工审批。2026 正在成为"AI 规模化落地"之年。
-    </div>
-  </div>
-
-  <!-- ===== Builder 动态 ===== -->
-  <div class="section-label">// BUILDER 动态</div>
-
-  <div class="builder">
-    <div class="builder-name"><span class="accent">Sam Altman</span> — OpenAI CEO</div>
-    <div class="builder-content">
-      <p>对语音模型的发展充满期待：<em>"pretty excited for voice models to get great — it's interesting to watch how people are already starting to change the way they interface with AI."</em></p>
-      <p style="margin-top:12px;">同时表示将为所有申请 <strong>GPT-5.5 派对</strong> 但因名额限制未能到场的用户准备一份惊喜礼物。</p>
-      <p style="margin-top:12px;font-size:14px;color:#666;"><a href="https://x.com/sama/status/2051464865634742334">x.com/sama →</a></p>
-    </div>
-  </div>
-
-  <div class="builder">
-    <div class="builder-name"><span class="accent">aleph_0_0</span> — DeepSeek 算力分析师</div>
-    <div class="builder-content">
-      <p>对比分析各 AI 实验室的 <strong>有效算力</strong>（effective compute）：</p>
-      <ul style="margin-top:12px;padding-left:20px;color:#b0b0b8;">
-        <li>DeepSeek R1 推理成本仅为 OpenAI o1 的约 <strong>1/20</strong></li>
-        <li>DeepSeek V4 有效训练算力约 <strong>15-20K H100 等效算力</strong>，效率显著提升</li>
-        <li>确认 DeepSeek 在杭州附近拥有大型数据中心</li>
-      </ul>
-      <p style="margin-top:12px;font-size:14px;color:#666;"><a href="https://x.com/aleph_0_0/status/2051476538082377945">x.com/aleph_0_0 →</a></p>
-    </div>
-  </div>
-
-  <div class="builder">
-    <div class="builder-name"><span class="accent">Aidan McLaughlin</span></div>
-    <div class="builder-content">
-      <p><strong>AI Agent 将首先取代 SDR（销售开发代表）</strong>。大量 B2B SaaS 公司的 SDR 团队将在未来 12-18 个月内被 AI 代理替代。最早采用这一模式的公司在单位经济效益上已展现 <strong>3-5x 的优势</strong>。</p>
-      <p style="margin-top:12px;font-size:14px;color:#666;"><a href="https://x.com/aidanmclaughlin/status/2051315820836466939">x.com/aidanmclaughlin →</a></p>
-    </div>
-  </div>
-
-  <div class="builder">
-    <div class="builder-name"><span class="accent">Teortaxes</span> — 中国芯片观察</div>
-    <div class="builder-content">
-      <p>中国 AI 芯片（如华为昇腾）正以更低价格向 <strong>东南亚、非洲和拉美市场</strong> 供应 AI 算力，让原本被高性能 GPU 排除在外的发展中国家能够运行自己的 AI 模型，加速全球 AI 应用民主化。</p>
-      <p style="margin-top:12px;font-size:14px;color:#666;"><a href="https://x.com/teortaxes/status/2051334393747153070">x.com/teortaxes →</a></p>
-    </div>
-  </div>
-
-  <div class="builder">
-    <div class="builder-name"><span class="accent">更多动态</span></div>
-    <div class="builder-content" style="border-left-color:#555;">
-      <ul style="padding-left:20px;color:#b0b0b8;">
-        <li><strong>Benjamin P. Hardy</strong> — 编程 AI 能力曲线急剧上升，基于 agent 的工具正在超越 autocomplete 模式</li>
-        <li><strong>Niclas</strong> — 2031 年 AI 将深度融入日常生活，AI Agent 在企业软件采购中占主导</li>
-        <li><strong>Yusuf Mehdi</strong> — Microsoft Copilot 变得更加个性化，跨会话保持上下文</li>
-        <li><strong>adityaag</strong> — 推理成本指数级下降，印度 AI 初创以更低资本门槛构建产品</li>
-        <li><strong>Amanda</strong> — AI 让非专业投资者也能做出更明智的投资决策</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- ===== 播客精选 ===== -->
-  <div class="section-label">// 播客精选</div>
-
-  <div class="podcast-card">
-    <div class="tag">TRAINING DATA</div>
-    <h2>Waymo 联合 CEO Dmitri Dolgov：<br><a href="https://www.youtube.com/playlist?list=PLOhHNjZItNnMm5tdW61JpnyxeYH5NDDx8">2000 万次出行与全面自动驾驶之路</a></h2>
-    <div class="content">
-      <span class="point"><strong>端到端+α 架构：</strong>Waymo Foundation Model 是端到端模型，但在 learned representation 之上增加<strong>结构化中间表征</strong>，用于运行时验证、闭环训练与强化学习的丰富奖励函数。</span>
-      <span class="point"><strong>世界行动语言模型：</strong>多模态 world-action-language model，集成 driver / simulator / critic 三大支柱，融入 VLM 通用世界知识。</span>
-      <span class="point"><strong>指数级扩张：</strong>第一个全自动运营到 4 个城市用了 8 年；2026 年一天之内同时在 4 个城市推出服务。2000 万次出行中最后 1000 万次仅用 7 个月。</span>
-      <span class="point"><strong>第六代硬件：</strong>与 Zeekr（极氪）合作的新平台已开始员工全自动运营，内部空间"像客厅一样宽敞"。</span>
-      <span class="point"><strong>行业周期：</strong>每次技术突破（CNN、Transformer、LLM）重塑早期曲线，但不会改变问题的长尾本质。</span>
-    </div>
-    <div class="why-matters">
-      <div class="label">●●● WHY IT MATTERS</div>
-      <p>Waymo 的"端到端+结构化中间表征"架构为自动驾驶规模化提供了关键路线图，也为其他 AI 系统如何平衡端到端学习的灵活性与工程可验证性提供了重要参考。</p>
-    </div>
-  </div>
-
-  <!-- ===== 技术博客 ===== -->
-  <div class="section-label">// 技术博客</div>
-
-  <div class="blog-card">
-    <div class="tag">ANTHROPIC ENGINEERING</div>
-    <h2><a href="https://www.anthropic.com/engineering/claude-code-auto-mode">Claude Code Auto Mode：更安全的免审批模式</a></h2>
-    <div class="content">
-      <span class="point"><strong>两级分类架构：</strong>Stage 1 快速单 token 过滤器（8.5% 误判率），触发后 Stage 2 chain-of-thought 推理降至 <strong>0.4%</strong> 误判率。</span>
-      <span class="point"><strong>代理间注入防护：</strong>输入层 prompt-injection probe + 输出层 transcript classifier，双重防护。</span>
-      <span class="point"><strong>Deny-and-continue：</strong>阻断时不中断，尝试更安全的替代路径。3 次连续阻断或 20 次总阻断后终止。</span>
-      <span class="point"><strong>危险操作召回率约 83%：</strong>17% 漏检率。Anthropic 坦诚"如果你在认真手动审批每个操作，auto mode 可能是退步。"</span>
-    </div>
-    <div class="why-matters">
-      <div class="label">●●● WHY IT MATTERS</div>
-      <p>用运行时分类器取代二元审批，为 agentic AI 的安全规模化提供了一条可操作的路径。</p>
-    </div>
-  </div>
-
-  <!-- ===== 结尾 ===== -->
-  <div class="closing">
-    <p>
-      当 Waymo 的自动驾驶实现指数级扩张，Claude Code 的 auto mode 让 AI 代理自主运行大部分操作，
-      而中国芯片正在将 AI 算力推向发展中国家 —— <span class="highlight">2026 年正在成为"AI 规模化落地"之年</span>。
-      问题不再是"AI 能做什么"，而是"我们如何信任它规模化"。
-      Waymo 的答案是用结构化验证补充端到端学习，Anthropic 的答案是用分类器取代人工审批。
-      <span class="highlight">两种不同的信任机制，指向同一个未来。</span>
-    </p>
-  </div>
-
-  <div class="footer">
-    <span>AI DIGEST · 2026.05.07</span>
-    <span><a href="20260508.html">5月8日 →</a></span>
-  </div>
-
 </div>
+
+<!-- ============================== -->
+<!-- 5月7日 — 页2 核心信号 -->
+<!-- ============================== -->
+<div class="card">
+  <div class="page-top">
+    <span class="label">● CORE SIGNALS</span>
+    <span class="page-num">02 / 05</span>
+  </div>
+  <div class="page-title">今天的<span class="highlight">三大信号</span></div>
+  <div class="big-point-grid three">
+    <div class="big-point">
+      <div class="emoji">🚗</div>
+      <div class="point-title">自动驾驶指数级扩张</div>
+      <div class="point-body">Waymo 从第 1 个城市到第 4 个用了 8 年，<strong>2026 年一天之内同时开 4 城</strong>。端到端+结构化表征是规模化密码</div>
+    </div>
+    <div class="big-point">
+      <div class="emoji">🤖</div>
+      <div class="point-title">Agent 安全新范式</div>
+      <div class="point-body">Claude Code Auto Mode 用<strong>两级分类器</strong>取代二元审批，误判率仅 0.4%。Deny-and-continue 让 Agent 尝试替代路径</div>
+    </div>
+    <div class="big-point">
+      <div class="emoji">🌍</div>
+      <div class="point-title">AI 算力民主化</div>
+      <div class="point-body">中国芯片（华为昇腾）涌入东南亚、非洲、拉美。DeepSeek V4 有效算力 <strong>15-20K H100</strong>，推理成本仅 o1 的 1/20</div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="brand">AI DIGEST</span>
+    <span>2026.05.07</span>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 5月7日 — 页3 Waymo Deep Dive -->
+<!-- ============================== -->
+<div class="card">
+  <div class="page-top">
+    <span class="label">● DEEP DIVE</span>
+    <span class="page-num">03 / 05</span>
+  </div>
+  <div class="page-title">Waymo：<span class="highlight">2000 万次出行</span><br>与全面自动驾驶之路</div>
+  <div class="quote-block">
+    <div class="quote">纯端到端不足以构建超人类安全水平的规模化产品</div>
+    <div class="source">— <strong>Dmitri Dolgov</strong> · Waymo 联合 CEO · Training Data 播客</div>
+  </div>
+  <div class="two-col">
+    <div class="col">
+      <div class="col-title">端到端 + α 架构</div>
+      <div class="col-body">Waymo Foundation Model 是端到端模型，但在 learned representation 之上增加<strong>结构化中间表征</strong>，用于运行时验证、闭环训练、RL 奖励函数</div>
+    </div>
+    <div class="col">
+      <div class="col-title">第六代硬件</div>
+      <div class="col-body">与 Zeekr（极氪）合作的新平台已开始员工全自动运营，内部空间<strong>"像客厅一样宽敞"</strong>。年内向所有乘客开放</div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="brand">AI DIGEST</span>
+    <span>2026.05.07</span>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 5月7日 — 页4 Auto Mode + Builder 动态 -->
+<!-- ============================== -->
+<div class="card">
+  <div class="page-top">
+    <span class="label">● DEEP DIVE</span>
+    <span class="page-num">04 / 05</span>
+  </div>
+  <div class="page-title">AI 信任规模化：<span class="highlight">两种路径</span></div>
+  <div class="quote-block" style="margin-bottom:28px;">
+    <div class="quote">过去一年使用量和收入增长了 80 倍，这就是为什么我们会继续获取尽可能多的算力</div>
+    <div class="source">— <strong>Sam Altman</strong> 暗示 GPT-5.5 · DeepSeek V4 算力 15-20K H100</div>
+  </div>
+  <div class="two-col">
+    <div class="col">
+      <div class="col-title">🤖 Claude Code Auto Mode</div>
+      <div class="col-body"><strong>两级分类器</strong>：Stage 1 快速过滤（8.5%误判）→ Stage 2 CoT推理（0.4%误判）。<strong>双防护注入</strong>：输入 prompt-injection probe + 输出 transcript classifier。<strong>Deny-and-continue</strong>：阻断时自动尝试安全替代路径</div>
+    </div>
+    <div class="col">
+      <div class="col-title">⚡ 更多信号</div>
+      <div class="col-body"><strong>AI Agent 取代 SDR</strong>：12-18 个月内替代销售开发代表，早期企业 3-5x 经济优势。<br><strong>中国芯片出海</strong>：华为昇腾低价供应东南亚/非洲/拉美，AI 算力民主化加速。<br><strong>Copilot 个性化</strong>：跨会话记忆用户偏好</div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="brand">AI DIGEST</span>
+    <span>2026.05.07</span>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 5月7日 — 页5 总结 -->
+<!-- ============================== -->
+<div class="card">
+  <div class="page-top">
+    <span class="label">● CONCLUSION</span>
+    <span class="page-num">05 / 05</span>
+  </div>
+  <div class="conclusion-area">
+    <div class="conclusion-big">
+      <span class="accent">2026</span> 正在成为<br><span class="accent">"AI 规模化落地"</span>之年
+    </div>
+    <div class="conclusion-evidence">
+      <div class="ev-item">
+        <div class="ev-num">20M</div>
+        <div class="ev-text">Waymo 全自动驾驶出行次数</div>
+      </div>
+      <div class="ev-item">
+        <div class="ev-num">0.4%</div>
+        <div class="ev-text">Auto Mode 二级误判率</div>
+      </div>
+      <div class="ev-item">
+        <div class="ev-num">1/20</div>
+        <div class="ev-text">DeepSeek R1 推理成本 vs o1</div>
+      </div>
+    </div>
+    <div class="next-spotlight">
+      <div class="label">核心问题</div>
+      <div class="text">不再是"AI 能做什么"，而是"我们如何信任它规模化"。Waymo 的答案：结构化验证补充端到端学习。Anthropic 的答案：分类器取代人工审批。两种信任机制，指向同一个未来。</div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="brand">AI DIGEST</span>
+    <span>2026.05.07</span>
+  </div>
+</div>
+
 </body>
 </html>
