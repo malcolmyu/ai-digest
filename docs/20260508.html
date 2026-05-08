@@ -20,13 +20,8 @@
     padding: 60px 24px;
   }
 
-  /* poster container */
-  .poster {
-    max-width: 1080px;
-    width: 100%;
-  }
+  .poster { max-width: 1080px; width: 100%; }
 
-  /* date bar */
   .date-bar {
     font-family: 'JetBrains Mono', monospace;
     font-size: 20px;
@@ -36,7 +31,6 @@
     margin-bottom: 16px;
     opacity: 0.7;
   }
-
   .date-bar span {
     display: inline-block;
     background: rgba(113,112,255,0.12);
@@ -45,70 +39,133 @@
     letter-spacing: 0.15em;
   }
 
-  /* main headline — 大字报内核 */
   .headline {
     font-size: clamp(64px, 10vw, 120px);
     font-weight: 900;
     line-height: 1.05;
     letter-spacing: -0.03em;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
-
-  .headline .accent {
-    color: #7170ff;
-  }
+  .headline .accent { color: #7170ff; }
 
   .subhead {
-    font-size: clamp(32px, 4vw, 56px);
-    font-weight: 700;
-    color: #555;
-    line-height: 1.2;
-    margin-bottom: 64px;
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 400;
+    color: #888;
+    line-height: 1.4;
+    margin-bottom: 48px;
   }
 
-  /* divider */
   .divider {
     width: 60px;
     height: 4px;
     background: #7170ff;
-    margin-bottom: 64px;
+    margin-bottom: 48px;
     border-radius: 2px;
   }
 
-  /* section label */
+  /* cover banner */
+  .cover-banner {
+    border: 1px solid #1a1b1f;
+    border-radius: 20px;
+    padding: 48px 40px;
+    margin-bottom: 48px;
+    background: linear-gradient(135deg, #0e0f12 0%, #08090a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(113,112,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cover-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #7170ff;
+    background: rgba(113,112,255,0.12);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    letter-spacing: 0.1em;
+  }
+  .cover-title {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .cover-title .highlight { color: #7170ff; }
+  .cover-desc {
+    font-size: clamp(16px, 2vw, 22px);
+    color: #aaa;
+    line-height: 1.5;
+    max-width: 85%;
+    position: relative;
+  }
+
   .section-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
+    font-size: 13px;
     color: #7170ff;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     opacity: 0.5;
   }
 
-  /* big cards */
-  .card-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 64px;
+  /* builder cards */
+  .builder { margin-bottom: 48px; }
+  .builder-name {
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 700;
+    margin-bottom: 4px;
   }
+  .builder-name .accent { color: #7170ff; }
+  .builder-role {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 16px;
+  }
+  .builder-content {
+    font-size: clamp(16px, 1.6vw, 20px);
+    line-height: 1.7;
+    color: #c0c0c8;
+    padding: 20px 24px;
+    background: #0e0f12;
+    border-radius: 14px;
+    border-left: 3px solid #7170ff55;
+  }
+  .builder-content blockquote {
+    border-left: 2px solid #7170ff33;
+    padding-left: 16px;
+    margin: 12px 0;
+    color: #999;
+    font-style: italic;
+  }
+  .builder-content a {
+    color: #7170ff;
+    text-decoration: none;
+    border-bottom: 1px solid #7170ff44;
+  }
+  .builder-content a:hover { border-bottom-color: #7170ff; }
 
-  .card {
+  /* podcast section */
+  .podcast-card {
     background: #0e0f12;
     border: 1px solid #1a1b1f;
     border-radius: 16px;
     padding: 36px 32px;
-    transition: border-color 0.2s, background 0.2s;
+    margin-bottom: 48px;
   }
-
-  .card:hover {
-    border-color: #7170ff33;
-    background: #111216;
-  }
-
-  .card .tag {
-    display: inline-block;
+  .podcast-card .tag {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
     font-weight: 700;
@@ -116,111 +173,82 @@
     background: rgba(113,112,255,0.1);
     padding: 2px 10px;
     border-radius: 4px;
-    margin-bottom: 16px;
+    display: inline-block;
+    margin-bottom: 12px;
     letter-spacing: 0.05em;
   }
-
-  .card p {
-    font-size: clamp(18px, 2vw, 24px);
-    line-height: 1.5;
-    color: #c8c8d0;
-    font-weight: 400;
-  }
-
-  .card .big-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(48px, 6vw, 72px);
+  .podcast-card h2 {
+    font-size: clamp(22px, 2.5vw, 32px);
     font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  .podcast-card h2 a { color: #7170ff; text-decoration: none; }
+  .podcast-card h2 a:hover { text-decoration: underline; }
+  .podcast-card .content {
+    font-size: clamp(16px, 1.6vw, 20px);
+    line-height: 1.7;
+    color: #c0c0c8;
+  }
+  .podcast-card .content .point {
+    display: block;
+    margin-bottom: 14px;
+    padding-left: 0;
+  }
+  .podcast-card .content .point strong { color: #e0e0e8; }
+  .podcast-card .why-matters {
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: rgba(113,112,255,0.06);
+    border-radius: 10px;
+    border: 1px solid #7170ff22;
+  }
+  .podcast-card .why-matters .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
     color: #7170ff;
-    line-height: 1;
     margin-bottom: 8px;
   }
+  .podcast-card .why-matters p {
+    font-size: 15px;
+    color: #999;
+    line-height: 1.5;
+  }
 
-  /* full-width impact banner */
-  .impact-banner {
-    background: linear-gradient(135deg, #7170ff11 0%, #08090a 100%);
+  /* closing */
+  .closing {
+    padding: 32px 28px;
     border: 1px solid #7170ff22;
-    border-radius: 20px;
-    padding: 48px 40px;
-    margin-bottom: 48px;
-    text-align: center;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #0e0f12 0%, #08090a 100%);
+    margin-bottom: 32px;
   }
-
-  .impact-banner .big-text {
-    font-size: clamp(36px, 5vw, 64px);
-    font-weight: 900;
-    line-height: 1.15;
-    margin-bottom: 16px;
-  }
-
-  .impact-banner .big-text .highlight {
-    color: #7170ff;
-  }
-
-  .impact-banner .meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-    color: #555;
-  }
-
-  /* one-liner list */
-  .oneliner-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 64px;
-  }
-
-  .oneliner {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    padding: 16px 20px;
-    background: #0e0f12;
-    border-radius: 12px;
-    border-left: 3px solid #7170ff;
-    font-size: clamp(18px, 2vw, 22px);
+  .closing p {
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: 1.6;
     color: #b0b0b8;
-    line-height: 1.4;
   }
+  .closing .highlight { color: #7170ff; font-weight: 700; }
 
-  .oneliner .idx {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-    color: #7170ff;
-    opacity: 0.5;
-    min-width: 28px;
-  }
-
-  /* footer */
   .footer {
     border-top: 1px solid #1a1b1f;
     padding-top: 32px;
-    margin-top: 32px;
+    margin-top: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
     color: #444;
   }
+  .footer a { color: #7170ff; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
 
-  .footer a {
-    color: #7170ff;
-    text-decoration: none;
-  }
-
-  .footer a:hover {
-    text-decoration: underline;
-  }
-
-  /* responsive */
   @media (max-width: 768px) {
     body { padding: 32px 16px; }
-    .card-grid { grid-template-columns: 1fr; }
-    .impact-banner { padding: 32px 24px; }
+    .cover-banner { padding: 32px 24px; }
+    .cover-desc { max-width: 100%; }
   }
 
-  /* print: 3:4 poster */
   @media print {
     @page { size: A4 portrait; margin: 0; }
     body { padding: 0; display: block; }
@@ -229,7 +257,6 @@
 </style>
 </head>
 <body>
-
 <div class="poster">
 
   <!-- date -->
@@ -237,57 +264,93 @@
 
   <!-- 大字报主标题 -->
   <div class="headline">
-    AI 的<span class="accent">下一个<br>跳跃</span>
+    <span class="accent">千人千面</span> Agent
   </div>
-  <div class="subhead">今天的头条决定明天的格局</div>
+  <div class="subhead">Claude Code 之父每晚跑数千 Agent · Dario 80x 增长<br>Boris Cherny 100% 手机写代码 · 编码成为新读写能力</div>
 
   <div class="divider"></div>
 
-  <!-- 核心炸弹 — 最炸裂内容做钩子 -->
-  <div class="impact-banner">
-    <div class="big-text">
-      <span class="highlight">●</span> 每日 AI 要闻 <span class="highlight">●</span>
+  <!-- 封面钩子 — 最炸裂内容 -->
+  <div class="cover-banner">
+    <div class="cover-tag">● TODAY'S BOMB</div>
+    <div class="cover-title">
+      "每晚<span class="highlight">数千个 AI Agent</span><br>在并行工作"
     </div>
-    <div class="meta">全球 AI 动态 · 关键发布 · 赛道风向</div>
-  </div>
-
-  <!-- 主要新闻卡片 -->
-  <div class="section-label">// TOP STORIES</div>
-  <div class="card-grid">
-    <div class="card">
-      <div class="tag">BREAKING</div>
-      <p>今日头条新闻标题 — 用一句话概括最劲爆的 AI 事件</p>
-    </div>
-    <div class="card">
-      <div class="tag">ANALYSIS</div>
-      <p>深度解读某大厂最新发布，对行业格局意味着什么</p>
-    </div>
-    <div class="card">
-      <div class="tag">OPEN SOURCE</div>
-      <p>某开源项目发布重大更新，性能超越竞品标杆</p>
-    </div>
-    <div class="card">
-      <div class="tag">FUNDING</div>
-      <p>某 AI 初创完成巨额融资，赛道估值再创新高</p>
+    <div class="cover-desc">
+      Claude Code 之父 Boris Cherny 已 100% 通过 AI 写代码，一天最多 150 个 PR，大部分工作——在手机上完成。Anthropic CEO Dario 同期宣布使用量增长 80 倍。
     </div>
   </div>
 
-  <!-- 速览列表 -->
-  <div class="section-label">// QUICK HITS</div>
-  <div class="oneliner-list">
-    <div class="oneliner"><span class="idx">01</span>快讯一 — 简短有力，一眼读懂核心信息</div>
-    <div class="oneliner"><span class="idx">02</span>快讯二 — 保持大字报节奏，每行只讲一件事</div>
-    <div class="oneliner"><span class="idx">03</span>快讯三 — 不多废话，直击要害</div>
-    <div class="oneliner"><span class="idx">04</span>快讯四 — 今天还有这些值得关注</div>
+  <!-- ===== Builder 动态 ===== -->
+  <div class="section-label">// BUILDER 动态</div>
+
+  <div class="builder">
+    <div class="builder-name"><span class="accent">Dario Amodei</span> — Anthropic CEO</div>
+    <div class="builder-content">
+      <blockquote>"去年我们的使用量和收入增长了 80 倍，这就是为什么我们会继续获取尽可能多的算力。"</blockquote>
+      <p>Peter Yang（Roblox Product）引用 Dario 分享的金句。模型正在从"编码"进化到"软件工程"，再到"经营整个业务"。他建议创业者<strong>"为指数级增长而构建"</strong>——有些产品在当前模型下不可行，但等到下一代模型就会爆发。</p>
+      <p style="margin-top:12px;"><a href="https://x.com/petergyang/status/2052123472583864780">x.com/petergyang →</a></p>
+      <p style="margin-top:6px;">Thariq（Anthropic Claude Code 团队成员）转述 Dario 的话：<em>"我们每天都在努力获得更多算力并传递给你们。如果有时需要等待，我们很抱歉——但我们会竭尽全力去获取。"</em>（1300+ 赞）<br><a href="https://x.com/trq212/status/2052250816720056604">x.com/trq212 →</a></p>
+    </div>
   </div>
 
-  <!-- footer -->
+  <div class="builder">
+    <div class="builder-name"><span class="accent">Claude</span> — 两大新功能</div>
+    <div class="builder-content">
+      <p><strong>Outcomes（成果校验）：</strong>编写评分标准（rubric），独立评阅模型检查输出质量，Agent 持续迭代直到达标。完成后通过 Webhook 通知。</p>
+      <p style="margin-top:12px;"><strong>Dreaming（梦境回顾）：</strong>Agent 回顾过去的会话，提取行为模式，整理记忆。Agent 随着时间推移不断学习和进化。</p>
+      <p style="margin-top:12px;font-size:14px;color:#666;"><a href="https://x.com/claudeai/status/2052067403228455419">x.com/claudeai →</a></p>
+    </div>
+  </div>
+
+  <div class="builder">
+    <div class="builder-name"><span class="accent">Zara Zhang</span></div>
+    <div class="builder-content">
+      <p>总结与 Boris Cherny 对话中最令人震撼的三点：</p>
+      <ol style="margin-top:12px;padding-left:20px;color:#b0b0b8;">
+        <li>Boris 轻描淡写地说他每晚有<strong>"数千个"</strong> Agent 在后台运行</li>
+        <li>他几乎只在<strong>手机</strong>上用 Claude Code</li>
+        <li><strong>编码将成为新的读写能力</strong>（literacy）——就像几百年前印刷术普及了读写一样</li>
+      </ol>
+      <p style="margin-top:12px;font-size:14px;color:#666;"><a href="https://x.com/zarazhangrui/status/2052277868319916402">x.com/zarazhangrui →</a></p>
+    </div>
+  </div>
+
+  <!-- ===== 播客精选 ===== -->
+  <div class="section-label">// 播客精华</div>
+
+  <div class="podcast-card">
+    <div class="tag">TRAINING DATA × BORIS CHERNY</div>
+    <h2><a href="https://www.youtube.com/playlist?list=PLOhHNjZItNnMm5tdW61JpnyxeYH5NDDx8">Coding's Printing Press Moment</a></h2>
+    <div class="content">
+      <span class="point"><strong>前 6 个月几乎不能用。</strong>团队为下一代模型构建产品，忍受了漫长的 PMF 空窗期。转折点出现在 <strong>Opus 4</strong> 发布后，增长指数级爆发，此后每次模型发布（4.5→4.6→4.7）再次加速。</span>
+      <span class="point"><strong>100% 通过 Agent 写代码。</strong>Boris 本人已一年多没手工写过一行代码。每天开 5-10 个会话，每个会话跑多个子 Agent。白天数百个并发，夜晚数千个做深度工作。</span>
+      <span class="point"><strong>Loops 是未来范式。</strong>用 Claude 自带的 <code>/loop</code> 跑几十个循环任务：自动 rebase PR、修复 CI 和 flaky test、每 30 分钟抓取 Twitter 反馈并聚类。<strong>Routines</strong> 更进一步——合上笔记本，循环仍在服务器上持续运行。</span>
+      <span class="point"><strong>"SaaSpocalypse"的真正冲击。</strong>切换成本和流程优势将贬值（模型自己就能理解和执行流程），但网络效应、规模经济和稀缺资源仍然有效。未来十年，能颠覆一切的创业公司数量将<strong>增长 10 倍</strong>。</span>
+      <span class="point"><strong>跨领域通才的时代。</strong>Claude Code 团队所有人都会写代码——包括工程经理、产品经理、设计师、数据科学家，甚至财务和用户研究员。最好的会计软件应该由<strong>最优秀的会计师</strong>来写。</span>
+    </div>
+    <div class="why-matters">
+      <div class="label">●●● WHY IT MATTERS</div>
+      <p>Boris 描绘的未来不是"程序员会失业"，而是"人人都是程序员"——就像今天人人都会读写一样。下一个问题不是"AI 会取代开发者吗"，而是当每个人都能用自然语言制造软件时，什么变得真正稀缺？</p>
+    </div>
+  </div>
+
+  <!-- ===== 闭幕 ===== -->
+  <div class="closing">
+    <p>
+      当模型从"编码助手"演进到"软件工程师"再到"经营业务"，
+      当<span class="highlight">数千个 Agent</span> 在你的手机后台默默工作——
+      我们正在经历的不仅仅是工具升级，而是<span class="highlight">软件开发这一活动本身的定义性转变</span>。
+      15 世纪欧洲识字率仅 10%，印刷术发明后 50 年内出版的文献超过此前 1000 年的总和。
+      今天，软件的民主化将以更快的速度发生。现在就是最好的创业时机。
+    </p>
+  </div>
+
   <div class="footer">
     <span>AI DIGEST · 2026.05.08</span>
-    <span><a href="20260507.html">← 5月7日</a> · <a href="#">今日</a> · 后一日 →</span>
+    <span><a href="20260507.html">← 5月7日</a> · <a href="https://malcolmyu.github.io/ai-digest/20260508.html">∞</a> · 后一日 →</span>
   </div>
 
 </div>
-
 </body>
 </html>
