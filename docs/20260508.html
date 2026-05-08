@@ -235,7 +235,10 @@
   }
 
   .card-footer {
-    margin-top: auto;
+    position: absolute;
+    bottom: 72px;
+    left: 80px;
+    right: 80px;
     padding-top: 24px;
     border-top: 1px solid rgba(255,255,255,0.04);
     display: flex;
@@ -336,6 +339,10 @@
         <span>印刷术类比</span>
         <span>软件民主化</span>
       </div>
+      <div class="card-footer" style="justify-content:center">
+        <span class="brand">AI DIGEST</span>
+        <span style="margin-left:auto">2026.05.08 · Training Data 播客</span>
+      </div>
     </div>
 
     <!-- ============================================ -->
@@ -357,19 +364,12 @@
         </div>
 
         <div class="analysis-block">
-          <div class="ab-title"><span class="emoji">🔄</span>Loops：永远在线的 Agent</div>
+          <div class="ab-title"><span class="emoji">🔄</span>Loops + 印刷术类比</div>
           <div class="ab-body">
             Boris 日常跑着 <strong>几十个 /loop 循环任务</strong>：自动 rebase PR、修复 flaky test、每 30 分钟抓取 Twitter 反馈并聚类。Claude 4.7 已经开始 <strong>主动提议开 loop</strong>——"我注意到数据在变化，让我开个循环每 30 分钟给你发 Slack 报告。"<br><br>
             <span class="accent-text">Loops 和子 Agent 正在取代传统的 CI/CD 流水线。</span>
           </div>
-        </div>
-
-        <div class="analysis-block">
-          <div class="ab-title"><span class="emoji">📜</span>印刷术的软件版本</div>
-          <div class="ab-body">
-            印刷术前欧洲识字率仅 10%，印刷术后 50 年出书量超过此前千年。书价跌了 100 倍。几百年后全球识字率升到 70%。<strong>软件正在经历完全一样的民主化</strong>——而且只会更快。以前需要学 TypeScript 和框架才能写代码，以后只需要懂业务。<br><br>
-            <span class="accent-text">"最好的会计软件，该由最好的会计师来写。"</span>
-          </div>
+          <div class="ab-quote">印刷术前识字率仅10%，术后50年产出超此前千年。<strong>软件正在经历完全一样的民主化</strong>——以前学框架，以后只需要懂业务。</div>
         </div>
       </div>
 
