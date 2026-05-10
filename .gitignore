@@ -13,3 +13,9 @@ Thumbs.db
 *.tmp
 *.bak
 test-results/
+
+# Node
+node_modules/
+package-lock.json
+package.json
+screenshot.js
